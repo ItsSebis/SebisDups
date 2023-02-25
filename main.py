@@ -1,9 +1,13 @@
-# created by Aadil Matloob jan
+# based on code by Aadil Matloob jan
+# video: Detect and Delete Duplicate files with python
+# uri: https://www.youtube.com/watch?v=XrALbgIbHzc
 # youtube: https://www.youtube.com/channel/UCTXiHVtLmYCRr_xGoWeefqg
-from tkinter.filedialog import askdirectory
-from tkinter import Tk
-import os, hashlib
+
+import hashlib
+import os
 from pathlib import Path
+from tkinter import Tk
+from tkinter.filedialog import askdirectory
 
 Tk().withdraw()
 path = askdirectory(title="Select a folder")
