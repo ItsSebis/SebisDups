@@ -5,15 +5,17 @@
 
 import hashlib
 import os
+import tkinter as tk
 from pathlib import Path
-from tkinter import Tk
 from tkinter.filedialog import askdirectory
 
-Tk().withdraw()
+# Get Folder to scan
+tk.Tk().withdraw()
 path = askdirectory(title="Select a folder")
 
 file_list = os.walk(path)
 
+# Search for duplicate files
 unique = dict()
 duplicates = dict()
 i = 1
@@ -22,17 +24,22 @@ for root, folders, files in file_list:
     for file in files:
         path = Path(os.path.join(root, file))
         try:
+            # Get file content hash and check if it is a duplicate
             fileHash = hashlib.md5(open(path, 'rb').read()).hexdigest()
             print(f'Files scanned: {i}/{len(files)}', end='\r')
             if fileHash not in unique:
+                # New file
                 unique[fileHash] = path
             else:
+                # Duplicate
                 duplicates[str(path)] = root
                 print(f'Duplicate: {path}')
         except:
             pass
         i += 1
-print(f"Finished with {duplicates} duplicate files as shown above.")
+
+# What to do with those duplicate files
+print(f"Finished with {len(duplicates)} duplicate files as shown above.")
 action = input("What do you want to do? (d - Delete, r - rename, n - nothing): ")
 actions = ('d', 'delete', 'r', 'rename', 'n', 'nothing')
 while action not in actions:
