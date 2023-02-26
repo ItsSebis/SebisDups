@@ -113,6 +113,21 @@ class GUI:
         self.actions.title("Actions for duplicates")
         self.actions.config(bg=self.bg)
 
+        actionFrame = tk.Frame(self.actions, bg=self.bg)
+        actionFrame.columnconfigure(0, weight=1)
+        actionFrame.columnconfigure(1, weight=1)
+        actionFrame.columnconfigure(2, weight=1)
+
+        delBut = tk.Button(actionFrame, text="Delete", bg=self.bg, fg=self.fg, command=self.delAll)
+        renBut = tk.Button(actionFrame, text="Rename", bg=self.bg, fg=self.fg, command=self.renAll)
+        notBut = tk.Button(actionFrame, text="Exit", bg=self.bg, fg=self.fg, command=quit)
+
+        delBut.grid(column=0, row=0)
+        renBut.grid(column=1, row=0)
+        notBut.grid(column=2, row=0)
+
+        actionFrame.pack()
+
         frame = tk.Frame(self.actions, bg=self.bg)
         frame.columnconfigure(0, weight=1)
 
@@ -129,6 +144,17 @@ class GUI:
 
         self.actions.mainloop()
         print("finished")
+
+    def delAll(self):
+        for file in self.duplicates:
+            os.remove(file)
+        self.actions.destroy()
+
+    def renAll(self):
+        for file in self.duplicates:
+            if not file.startswith('DUP_'):
+                os.rename(file, os.path.join(self.duplicates[file], "DUP_" + file))
+        self.actions.destroy()
 
 
 GUI()
