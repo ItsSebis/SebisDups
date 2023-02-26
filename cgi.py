@@ -9,9 +9,9 @@ import tkinter as tk
 from pathlib import Path
 from tkinter.filedialog import askdirectory
 
-# Get Folder to scan
 tk.Tk().withdraw()
 path = askdirectory(title="Select a folder")
+# Get Folder to scan
 
 file_list = os.walk(path)
 
@@ -51,4 +51,4 @@ match action:
     case 'r', 'rename':
         for file in duplicates:
             if not file.startswith('DUP_'):
-                os.rename(path, os.path.join(duplicates[file], "DUP_"+file))
+                os.rename(path, os.path.join(duplicates[file], "DUP_" + file))
